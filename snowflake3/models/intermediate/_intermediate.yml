@@ -1,0 +1,79 @@
+version: 2
+
+models:
+  - name: int_trade_enriched
+    description: "Pipeline B: Enriched trade data with instrument, counterparty, and portfolio details"
+    config:
+      tags: ['pipeline_b']
+    columns:
+      - name: trade_id
+        tests:
+          - unique
+          - not_null
+
+  - name: int_daily_positions
+    description: "Pipeline B: Daily position snapshots with PnL and portfolio weight calculations"
+    config:
+      tags: ['pipeline_b']
+    columns:
+      - name: position_id
+        tests:
+          - not_null
+
+  - name: int_cashflow_enriched
+    description: "Pipeline C: Enriched cashflow data with fund structure and cumulative totals"
+    config:
+      tags: ['pipeline_c']
+    columns:
+      - name: cashflow_id
+        tests:
+          - unique
+          - not_null
+
+  - name: int_valuation_enriched
+    description: "Pipeline C: Enriched valuation data with period-over-period changes"
+    config:
+      tags: ['pipeline_c']
+    columns:
+      - name: valuation_id
+        tests:
+          - not_null
+
+  - name: int_benchmark_returns
+    description: "Pipeline C: Benchmark returns with rolling 3/6/12 month calculations"
+    config:
+      tags: ['pipeline_c']
+    columns:
+      - name: benchmark_id
+        tests:
+          - not_null
+
+  - name: int_fund_nav
+    description: "Pipeline C: Fund-level NAV aggregated from portfolio valuations"
+    config:
+      tags: ['pipeline_c']
+    columns:
+      - name: fund_id
+        tests:
+          - not_null
+
+  - name: int_portfolio_attribution
+    description: "Pipeline C: Portfolio performance attribution by sector"
+    config:
+      tags: ['pipeline_c']
+    columns:
+      - name: portfolio_id
+        tests:
+          - not_null
+
+  - name: int_irr_calculations
+    description: "Pipeline C: Approximate IRR and multiple calculations per fund/portfolio"
+    config:
+      tags: ['pipeline_c']
+    columns:
+      - name: portfolio_id
+        tests:
+          - not_null
+      - name: fund_id
+        tests:
+          - not_null

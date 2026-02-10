@@ -1,0 +1,13 @@
+bain_capital_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      warehouse: COMPUTE_WH
+      database: DBT_DEMO
+      role: ACCOUNTADMIN
+      schema: DEV
+      threads: 4
