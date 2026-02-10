@@ -1,0 +1,25 @@
+
+    
+    
+
+with child as (
+    select portfolio_id as from_field
+    from "bain_analytics"."public"."stg_positions"
+    where portfolio_id is not null
+),
+
+parent as (
+    select portfolio_id as to_field
+    from "bain_analytics"."public"."stg_portfolios"
+)
+
+select
+    from_field
+
+from child
+left join parent
+    on child.from_field = parent.to_field
+
+where parent.to_field is null
+
+

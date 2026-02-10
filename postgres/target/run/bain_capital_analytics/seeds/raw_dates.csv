@@ -1,0 +1,14 @@
+
+    
+    
+    
+    create table "bain_analytics"."public_raw"."raw_dates" ("date_day" date,"is_business_day" boolean,"is_month_end" boolean,"is_quarter_end" boolean,"is_year_end" boolean,"fiscal_quarter" text,"fiscal_year" text)
+  ;
+    -- dbt seed --
+    
+          insert into "bain_analytics"."public_raw"."raw_dates" ("date_day", "is_business_day", "is_month_end", "is_quarter_end", "is_year_end", "fiscal_quarter", "fiscal_year") values
+          (%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s)
+      
+
+;
+  

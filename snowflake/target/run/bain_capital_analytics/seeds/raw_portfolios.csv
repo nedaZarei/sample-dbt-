@@ -1,0 +1,14 @@
+
+    
+    
+    
+    create table DBT_DEMO.DEV_raw.raw_portfolios (portfolio_id text,portfolio_name text,strategy text,inception_date date,fund_id text,manager_name text,is_active boolean)
+  ;
+    -- dbt seed --
+    
+            insert into DBT_DEMO.DEV_raw.raw_portfolios (portfolio_id, portfolio_name, strategy, inception_date, fund_id, manager_name, is_active) values
+            (%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s)
+        
+
+;
+  

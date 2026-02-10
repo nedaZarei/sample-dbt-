@@ -1,0 +1,26 @@
+cashflow_id,fund_id,portfolio_id,cashflow_date,cashflow_type,amount,currency,description,investor_id
+CF001,FD001,PF001,2023-01-01,capital_call,5000000.00,USD,Initial capital call Q1 2023,INV001
+CF002,FD001,PF001,2023-04-01,capital_call,2000000.00,USD,Follow-on capital call Q2 2023,INV001
+CF003,FD001,PF002,2023-01-01,capital_call,4000000.00,USD,Initial capital call Q1 2023,INV002
+CF004,FD001,PF002,2023-07-01,distribution,500000.00,USD,Interest distribution Q3 2023,INV002
+CF005,FD002,PF003,2023-03-01,capital_call,8000000.00,USD,PE commitment draw Q1 2023,INV001
+CF006,FD002,PF003,2023-06-01,capital_call,3000000.00,USD,PE follow-on draw Q2 2023,INV003
+CF007,FD002,PF004,2023-05-01,capital_call,10000000.00,USD,Real assets initial draw,INV002
+CF008,FD002,PF004,2023-09-01,distribution,750000.00,USD,Rental income distribution Q3,INV002
+CF009,FD003,PF005,2023-06-01,capital_call,6000000.00,USD,Macro fund initial allocation,INV003
+CF010,FD003,PF005,2023-12-01,distribution,200000.00,USD,Trading profit distribution Q4,INV003
+CF011,FD001,PF001,2023-07-01,distribution,350000.00,USD,Dividend distribution Q3 2023,INV001
+CF012,FD001,PF001,2023-10-01,capital_call,1500000.00,USD,Opportunistic call Q4 2023,INV001
+CF013,FD001,PF002,2023-10-01,capital_call,2000000.00,USD,Distressed opportunity Q4 2023,INV002
+CF014,FD002,PF003,2023-09-01,capital_call,2000000.00,USD,Co-invest follow-on Q3 2023,INV001
+CF015,FD002,PF004,2023-12-01,distribution,900000.00,USD,Rental income distribution Q4,INV002
+CF016,FD001,PF001,2024-01-01,capital_call,1000000.00,USD,Q1 2024 capital call,INV001
+CF017,FD001,PF002,2024-01-01,distribution,600000.00,USD,Interest distribution Q1 2024,INV002
+CF018,FD002,PF003,2024-01-01,capital_call,1500000.00,USD,PE draw Q1 2024,INV003
+CF019,FD002,PF004,2024-03-01,distribution,1100000.00,USD,Asset sale proceeds Q1 2024,INV002
+CF020,FD003,PF005,2024-03-01,capital_call,2000000.00,USD,Macro fund additional allocation,INV003
+CF021,FD001,PF001,2024-02-01,management_fee,-42500.00,USD,Management fee Q1 2024,INV001
+CF022,FD001,PF002,2024-02-01,management_fee,-35000.00,USD,Management fee Q1 2024,INV002
+CF023,FD002,PF003,2024-02-01,management_fee,-72500.00,USD,Management fee Q1 2024,INV001
+CF024,FD002,PF004,2024-02-01,management_fee,-55000.00,USD,Management fee Q1 2024,INV002
+CF025,FD003,PF005,2024-02-01,management_fee,-40000.00,USD,Management fee Q1 2024,INV003

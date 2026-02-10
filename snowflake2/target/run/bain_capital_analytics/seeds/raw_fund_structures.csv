@@ -1,0 +1,14 @@
+
+    
+    
+    
+    create table DBT_DEMO.DEV_raw.raw_fund_structures (fund_id text,fund_name text,fund_type text,vintage_year integer,committed_capital integer,management_fee_rate float8,carry_rate float8,hurdle_rate float8,gp_commitment_pct float8,fund_currency text,fund_status text)
+  ;
+    -- dbt seed --
+    
+            insert into DBT_DEMO.DEV_raw.raw_fund_structures (fund_id, fund_name, fund_type, vintage_year, committed_capital, management_fee_rate, carry_rate, hurdle_rate, gp_commitment_pct, fund_currency, fund_status) values
+            (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+        
+
+;
+  

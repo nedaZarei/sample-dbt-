@@ -1,0 +1,4 @@
+fund_id,fund_name,fund_type,vintage_year,committed_capital,management_fee_rate,carry_rate,hurdle_rate,gp_commitment_pct,fund_currency,fund_status
+FD001,Bain Capital Special Situations I,hedge_fund,2023,50000000.00,0.0200,0.2000,0.0800,0.0500,USD,active
+FD002,Bain Capital PE Co-Invest I,private_equity,2023,100000000.00,0.0150,0.2000,0.0800,0.1000,USD,active
+FD003,Bain Capital Macro Strategies I,hedge_fund,2023,30000000.00,0.0175,0.2000,0.0600,0.0500,USD,active

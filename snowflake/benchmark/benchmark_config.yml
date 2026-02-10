@@ -1,0 +1,51 @@
+# Benchmarking System Configuration
+# This file defines the three pipelines for performance benchmarking
+
+benchmarking:
+  # Default metric collection settings
+  default_metrics:
+    collect_compilation_time: true
+    collect_execution_time: true
+    collect_memory_usage: true
+    collect_row_counts: true
+
+  # Cost estimation settings (optional)
+  cost_estimation:
+    enabled: true
+    # Warehouse size determines credits per hour
+    # Options: X-Small, Small, Medium, Large, X-Large, 2X-Large, 3X-Large, 4X-Large
+    warehouse_size: "X-Small"
+    # Credits per hour for the warehouse size
+    # X-Small = 1, Small = 2, Medium = 4, Large = 8, X-Large = 16, etc.
+    credits_per_hour: 1
+    # Cost per credit in USD (typically $2-4 depending on your contract)
+    cost_per_credit_usd: 2.50
+
+pipelines:
+  # Pipeline A: Portfolio Summary and Overview Models
+  - name: "Pipeline A"
+    description: "Portfolio summary and overview models"
+    dbt_selector: "tag:pipeline_a"
+    final_models:
+      - "fact_portfolio_summary"
+      - "report_portfolio_overview"
+
+  # Pipeline B: Trade Activity and PnL Models
+  - name: "Pipeline B"
+    description: "Trade activity and P&L analysis models"
+    dbt_selector: "tag:pipeline_b"
+    final_models:
+      - "fact_trade_activity"
+      - "fact_portfolio_pnl"
+      - "report_daily_pnl"
+
+  # Pipeline C: Fund Performance and LP Reporting Models
+  - name: "Pipeline C"
+    description: "Fund performance and LP quarterly reporting models"
+    dbt_selector: "tag:pipeline_c"
+    final_models:
+      - "fact_fund_performance"
+      - "fact_cashflow_waterfall"
+      - "fact_portfolio_attribution"
+      - "report_lp_quarterly"
+      - "report_ic_dashboard"

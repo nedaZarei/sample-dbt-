@@ -1,0 +1,14 @@
+
+    
+    
+    
+    create table "bain_analytics"."public_raw"."raw_counterparties" ("counterparty_id" text,"counterparty_name" text,"counterparty_type" text,"country" text,"credit_rating" text,"is_active" boolean)
+  ;
+    -- dbt seed --
+    
+          insert into "bain_analytics"."public_raw"."raw_counterparties" ("counterparty_id", "counterparty_name", "counterparty_type", "country", "credit_rating", "is_active") values
+          (%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s)
+      
+
+;
+  

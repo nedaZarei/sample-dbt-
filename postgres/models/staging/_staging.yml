@@ -1,0 +1,132 @@
+version: 2
+
+models:
+  - name: stg_portfolios
+    description: Staged portfolio data with fiscal quarter derivation
+    config:
+      tags: ['pipeline_a', 'pipeline_b', 'pipeline_c']
+    columns:
+      - name: portfolio_id
+        description: Unique portfolio identifier
+        tests:
+          - unique
+          - not_null
+      - name: fund_id
+        tests:
+          - not_null
+
+  - name: stg_positions
+    description: Staged position data with unrealized gain/loss calculations
+    config:
+      tags: ['pipeline_a', 'pipeline_b', 'pipeline_c']
+    columns:
+      - name: position_id
+        description: Unique position identifier
+        tests:
+          - unique
+          - not_null
+      - name: portfolio_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_portfolios')
+              field: portfolio_id
+
+  - name: stg_trades
+    description: Staged trade data filtered to settled trades only
+    config:
+      tags: ['pipeline_b']
+    columns:
+      - name: trade_id
+        description: Unique trade identifier
+        tests:
+          - unique
+          - not_null
+      - name: portfolio_id
+        tests:
+          - not_null
+      - name: instrument_id
+        tests:
+          - not_null
+
+  - name: stg_instruments
+    description: Staged instrument reference data with liquidity classification
+    config:
+      tags: ['pipeline_b', 'pipeline_c']
+    columns:
+      - name: instrument_id
+        description: Unique instrument identifier
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_counterparties
+    description: Staged counterparty reference data filtered to active only
+    config:
+      tags: ['pipeline_b']
+    columns:
+      - name: counterparty_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_cashflows
+    description: Staged cashflow data with fiscal quarter
+    config:
+      tags: ['pipeline_c']
+    columns:
+      - name: cashflow_id
+        tests:
+          - unique
+          - not_null
+      - name: fund_id
+        tests:
+          - not_null
+      - name: portfolio_id
+        tests:
+          - not_null
+
+  - name: stg_valuations
+    description: Staged valuation data with fiscal quarter
+    config:
+      tags: ['pipeline_c']
+    columns:
+      - name: valuation_id
+        tests:
+          - unique
+          - not_null
+      - name: portfolio_id
+        tests:
+          - not_null
+
+  - name: stg_benchmarks
+    description: Staged benchmark return data
+    config:
+      tags: ['pipeline_b', 'pipeline_c']
+    columns:
+      - name: benchmark_id
+        tests:
+          - not_null
+      - name: benchmark_date
+        tests:
+          - not_null
+
+  - name: stg_fund_structures
+    description: Staged fund structure and fee data
+    config:
+      tags: ['pipeline_c']
+    columns:
+      - name: fund_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_dates
+    description: Staged date dimension
+    config:
+      tags: ['pipeline_b', 'pipeline_c']
+    columns:
+      - name: date_day
+        tests:
+          - unique
+          - not_null

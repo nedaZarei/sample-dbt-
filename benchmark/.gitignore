@@ -1,0 +1,6 @@
+# Report files may contain sensitive data
+*.json
+
+# Python cache
+__pycache__/
+*.pyc

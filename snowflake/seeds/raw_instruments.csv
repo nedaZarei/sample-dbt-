@@ -1,0 +1,21 @@
+instrument_id,instrument_name,instrument_type,sector,currency,exchange,issuer,maturity_date
+INS001,AAPL US Equity,equity,technology,USD,NASDAQ,Apple Inc,
+INS002,MSFT US Equity,equity,technology,USD,NASDAQ,Microsoft Corp,
+INS003,HYG US Bond,corporate_bond,high_yield,USD,NYSE,iShares,2028-12-15
+INS004,BX PE Fund III,private_equity,financials,USD,,Blackstone,
+INS005,TSLA US Equity,equity,consumer_discretionary,USD,NASDAQ,Tesla Inc,
+INS006,JNK US Bond,corporate_bond,high_yield,USD,NYSE,SPDR,2027-06-30
+INS007,KKR Co-Invest II,private_equity,industrials,USD,,KKR,
+INS008,NVDA US Equity,equity,technology,USD,NASDAQ,NVIDIA Corp,
+INS009,Prologis REIT,real_estate,real_estate,USD,NYSE,Prologis,
+INS010,BKLN Loan ETF,leveraged_loan,financials,USD,NYSE,Invesco,2026-09-15
+INS011,Brookfield Infra,infrastructure,utilities,USD,NYSE,Brookfield,
+INS012,UST 10Y Note,government_bond,sovereign,USD,,US Treasury,2034-01-15
+INS013,SPX Index Futures,futures,index,USD,CME,CME Group,2024-12-20
+INS014,EUR/USD FX Fwd,fx_forward,currency,EUR,,Citi,2024-06-30
+INS015,Gold Futures,commodity,precious_metals,USD,COMEX,CME Group,2024-12-20
+INS016,AMZN US Equity,equity,consumer_discretionary,USD,NASDAQ,Amazon,
+INS017,LQD Corp Bond,corporate_bond,investment_grade,USD,NYSE,iShares,2029-03-15
+INS018,CRE Loan Pool A,real_estate_debt,real_estate,USD,,Internal,2027-12-31
+INS019,Venture Fund IV,venture_capital,technology,USD,,Internal,
+INS020,EM Sovereign Bd,sovereign_bond,emerging_markets,USD,OTC,Various,2028-07-15

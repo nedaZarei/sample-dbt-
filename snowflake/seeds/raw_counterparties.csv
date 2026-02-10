@@ -1,0 +1,11 @@
+counterparty_id,counterparty_name,counterparty_type,country,credit_rating,is_active
+CP001,Goldman Sachs,prime_broker,US,A+,true
+CP002,JP Morgan,prime_broker,US,AA-,true
+CP003,Morgan Stanley,prime_broker,US,A+,true
+CP004,Citadel Securities,market_maker,US,A,true
+CP005,Jane Street,market_maker,US,A,true
+CP006,Barclays,broker_dealer,UK,A,true
+CP007,Deutsche Bank,broker_dealer,DE,BBB+,true
+CP008,UBS,custodian,CH,A+,true
+CP009,State Street,custodian,US,A,true
+CP010,BNY Mellon,custodian,US,AA-,true
