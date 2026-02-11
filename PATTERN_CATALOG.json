@@ -1,0 +1,749 @@
+{
+  "catalog_metadata": {
+    "title": "PostgreSQL to Snowflake SQL Dialect Translation Catalog",
+    "version": "1.0",
+    "created_date": "2024",
+    "scope": "30 SQL files (2 macros, 10 staging, 8 intermediate, 10 marts)",
+    "total_patterns": 12,
+    "total_instances": 156
+  },
+  "patterns": [
+    {
+      "pattern_id": 1,
+      "pattern_name": "Date Subtraction for Day Calculation",
+      "description": "PostgreSQL date arithmetic: subtracting dates to get integer number of days",
+      "category": "Date/Time Operations",
+      "postgres_syntax": "({{ end_date }} - {{ start_date }})",
+      "snowflake_syntax": "DATEDIFF(DAY, {{ start_date }}, {{ end_date }})",
+      "complexity": "Low",
+      "instance_count": 10,
+      "locations": [
+        {
+          "file": "postgres/models/staging/stg_instruments.sql",
+          "line": 14,
+          "context": "cast(maturity_date as date) - current_date"
+        },
+        {
+          "file": "postgres/models/staging/stg_trades.sql",
+          "line": 26,
+          "context": "cast(settlement_date as date) - cast(trade_date as date) as settlement_days"
+        },
+        {
+          "file": "postgres/macros/date_utils.sql",
+          "line": 28,
+          "context": "({{ end_date }} - {{ start_date }})"
+        },
+        {
+          "file": "postgres/models/intermediate/int_irr_calculations.sql",
+          "line": 56,
+          "context": "(ac.cashflow_date - min(ac.cashflow_date) over (...))::numeric / 365.25 as year_fraction"
+        },
+        {
+          "file": "postgres/models/intermediate/int_irr_calculations.sql",
+          "line": 68,
+          "context": "max(cashflow_date) - min(cashflow_date) as investment_days"
+        },
+        {
+          "file": "postgres/models/intermediate/int_valuation_enriched.sql",
+          "line": 48,
+          "context": "vr.valuation_date - lag(vr.valuation_date) over (...) as days_between_valuations"
+        }
+      ]
+    },
+    {
+      "pattern_id": 2,
+      "pattern_name": "Extract Month from Date",
+      "description": "PostgreSQL EXTRACT function to get month number from date",
+      "category": "Date/Time Operations",
+      "postgres_syntax": "extract(month from {{ date_column }})",
+      "snowflake_syntax": "MONTH({{ date_column }})",
+      "complexity": "Low",
+      "instance_count": 35,
+      "locations": [
+        {
+          "file": "postgres/macros/date_utils.sql",
+          "line": 7,
+          "context": "extract(month from {{ date_column }}) between 1 and 3"
+        },
+        {
+          "file": "postgres/macros/date_utils.sql",
+          "line": 8,
+          "context": "extract(month from {{ date_column }}) between 4 and 6"
+        },
+        {
+          "file": "postgres/macros/date_utils.sql",
+          "line": 9,
+          "context": "extract(month from {{ date_column }}) between 7 and 9"
+        },
+        {
+          "file": "postgres/macros/date_utils.sql",
+          "line": 10,
+          "context": "extract(month from {{ date_column }}) between 10 and 12"
+        },
+        {
+          "file": "postgres/models/staging/stg_benchmarks.sql",
+          "line": 11,
+          "context": "extract(month from cast(benchmark_date as date)) between 1 and 3"
+        },
+        {
+          "file": "postgres/models/staging/stg_benchmarks.sql",
+          "line": 12,
+          "context": "extract(month from cast(benchmark_date as date)) between 4 and 6"
+        },
+        {
+          "file": "postgres/models/staging/stg_benchmarks.sql",
+          "line": 13,
+          "context": "extract(month from cast(benchmark_date as date)) between 7 and 9"
+        },
+        {
+          "file": "postgres/models/staging/stg_benchmarks.sql",
+          "line": 14,
+          "context": "extract(month from cast(benchmark_date as date)) between 10 and 12"
+        },
+        {
+          "file": "postgres/models/staging/stg_cashflows.sql",
+          "line": 15,
+          "context": "extract(month from cast(cashflow_date as date)) between 1 and 3"
+        },
+        {
+          "file": "postgres/models/staging/stg_cashflows.sql",
+          "line": 16,
+          "context": "extract(month from cast(cashflow_date as date)) between 4 and 6"
+        },
+        {
+          "file": "postgres/models/staging/stg_cashflows.sql",
+          "line": 17,
+          "context": "extract(month from cast(cashflow_date as date)) between 7 and 9"
+        },
+        {
+          "file": "postgres/models/staging/stg_cashflows.sql",
+          "line": 18,
+          "context": "extract(month from cast(cashflow_date as date)) between 10 and 12"
+        },
+        {
+          "file": "postgres/models/staging/stg_dates.sql",
+          "line": 12,
+          "context": "extract(month from cast(date_day as date)) as calendar_month"
+        },
+        {
+          "file": "postgres/models/staging/stg_portfolios.sql",
+          "line": 14,
+          "context": "extract(month from cast(inception_date as date)) between 1 and 3"
+        },
+        {
+          "file": "postgres/models/staging/stg_portfolios.sql",
+          "line": 15,
+          "context": "extract(month from cast(inception_date as date)) between 4 and 6"
+        },
+        {
+          "file": "postgres/models/staging/stg_portfolios.sql",
+          "line": 16,
+          "context": "extract(month from cast(inception_date as date)) between 7 and 9"
+        },
+        {
+          "file": "postgres/models/staging/stg_portfolios.sql",
+          "line": 17,
+          "context": "extract(month from cast(inception_date as date)) between 10 and 12"
+        },
+        {
+          "file": "postgres/models/staging/stg_trades.sql",
+          "line": 20,
+          "context": "extract(month from cast(trade_date as date)) between 1 and 3"
+        },
+        {
+          "file": "postgres/models/staging/stg_trades.sql",
+          "line": 21,
+          "context": "extract(month from cast(trade_date as date)) between 4 and 6"
+        },
+        {
+          "file": "postgres/models/staging/stg_trades.sql",
+          "line": 22,
+          "context": "extract(month from cast(trade_date as date)) between 7 and 9"
+        },
+        {
+          "file": "postgres/models/staging/stg_trades.sql",
+          "line": 23,
+          "context": "extract(month from cast(trade_date as date)) between 10 and 12"
+        },
+        {
+          "file": "postgres/models/staging/stg_valuations.sql",
+          "line": 14,
+          "context": "extract(month from cast(valuation_date as date)) between 1 and 3"
+        },
+        {
+          "file": "postgres/models/staging/stg_valuations.sql",
+          "line": 15,
+          "context": "extract(month from cast(valuation_date as date)) between 4 and 6"
+        },
+        {
+          "file": "postgres/models/staging/stg_valuations.sql",
+          "line": 16,
+          "context": "extract(month from cast(valuation_date as date)) between 7 and 9"
+        },
+        {
+          "file": "postgres/models/staging/stg_valuations.sql",
+          "line": 17,
+          "context": "extract(month from cast(valuation_date as date)) between 10 and 12"
+        },
+        {
+          "file": "postgres/models/intermediate/int_trade_enriched.sql",
+          "line": 23,
+          "context": "extract(month from t.trade_date) between 1 and 3"
+        },
+        {
+          "file": "postgres/models/intermediate/int_trade_enriched.sql",
+          "line": 24,
+          "context": "extract(month from t.trade_date) between 4 and 6"
+        },
+        {
+          "file": "postgres/models/intermediate/int_trade_enriched.sql",
+          "line": 25,
+          "context": "extract(month from t.trade_date) between 7 and 9"
+        },
+        {
+          "file": "postgres/models/intermediate/int_trade_enriched.sql",
+          "line": 26,
+          "context": "extract(month from t.trade_date) between 10 and 12"
+        },
+        {
+          "file": "postgres/models/marts/fact_cashflow_waterfall.sql",
+          "line": 27,
+          "context": "extract(month from ce.cashflow_date) between 1 and 3"
+        },
+        {
+          "file": "postgres/models/marts/fact_cashflow_waterfall.sql",
+          "line": 28,
+          "context": "extract(month from ce.cashflow_date) between 4 and 6"
+        },
+        {
+          "file": "postgres/models/marts/fact_cashflow_waterfall.sql",
+          "line": 29,
+          "context": "extract(month from ce.cashflow_date) between 7 and 9"
+        },
+        {
+          "file": "postgres/models/marts/fact_cashflow_waterfall.sql",
+          "line": 30,
+          "context": "extract(month from ce.cashflow_date) between 10 and 12"
+        },
+        {
+          "file": "postgres/models/marts/fact_trade_activity.sql",
+          "line": 39,
+          "context": "extract(month from t.trade_date) between 1 and 3"
+        },
+        {
+          "file": "postgres/models/marts/fact_trade_activity.sql",
+          "line": 40,
+          "context": "extract(month from t.trade_date) between 4 and 6"
+        },
+        {
+          "file": "postgres/models/marts/fact_trade_activity.sql",
+          "line": 41,
+          "context": "extract(month from t.trade_date) between 7 and 9"
+        },
+        {
+          "file": "postgres/models/marts/fact_trade_activity.sql",
+          "line": 42,
+          "context": "extract(month from t.trade_date) between 10 and 12"
+        },
+        {
+          "file": "postgres/models/marts/report_ic_dashboard.sql",
+          "line": 75,
+          "context": "extract(month from lps.position_date) between 1 and 3"
+        },
+        {
+          "file": "postgres/models/marts/report_ic_dashboard.sql",
+          "line": 76,
+          "context": "extract(month from lps.position_date) between 4 and 6"
+        },
+        {
+          "file": "postgres/models/marts/report_ic_dashboard.sql",
+          "line": 77,
+          "context": "extract(month from lps.position_date) between 7 and 9"
+        },
+        {
+          "file": "postgres/models/marts/report_ic_dashboard.sql",
+          "line": 78,
+          "context": "extract(month from lps.position_date) between 10 and 12"
+        },
+        {
+          "file": "postgres/models/marts/report_portfolio_overview.sql",
+          "line": 20,
+          "context": "extract(month from fps.position_date) between 1 and 3"
+        },
+        {
+          "file": "postgres/models/marts/report_portfolio_overview.sql",
+          "line": 21,
+          "context": "extract(month from fps.position_date) between 4 and 6"
+        },
+        {
+          "file": "postgres/models/marts/report_portfolio_overview.sql",
+          "line": 22,
+          "context": "extract(month from fps.position_date) between 7 and 9"
+        },
+        {
+          "file": "postgres/models/marts/report_portfolio_overview.sql",
+          "line": 23,
+          "context": "extract(month from fps.position_date) between 10 and 12"
+        }
+      ]
+    },
+    {
+      "pattern_id": 3,
+      "pattern_name": "Extract Year from Date",
+      "description": "PostgreSQL EXTRACT function to get year number from date",
+      "category": "Date/Time Operations",
+      "postgres_syntax": "extract(year from {{ date_column }})",
+      "snowflake_syntax": "YEAR({{ date_column }})",
+      "complexity": "Low",
+      "instance_count": 8,
+      "locations": [
+        {
+          "file": "postgres/macros/date_utils.sql",
+          "line": 19,
+          "context": "extract(year from {{ date_column }}) + 1"
+        },
+        {
+          "file": "postgres/macros/date_utils.sql",
+          "line": 20,
+          "context": "extract(year from {{ date_column }})"
+        },
+        {
+          "file": "postgres/models/staging/stg_cashflows.sql",
+          "line": 21,
+          "context": "extract(year from cast(cashflow_date as date)) as cashflow_year"
+        },
+        {
+          "file": "postgres/models/staging/stg_dates.sql",
+          "line": 13,
+          "context": "extract(year from cast(date_day as date)) as calendar_year"
+        },
+        {
+          "file": "postgres/models/marts/fact_cashflow_waterfall.sql",
+          "line": 33,
+          "context": "extract(year from ce.cashflow_date) as calendar_year"
+        },
+        {
+          "file": "postgres/models/marts/report_portfolio_overview.sql",
+          "line": 27,
+          "context": "extract(year from fps.position_date) + 1"
+        },
+        {
+          "file": "postgres/models/marts/report_portfolio_overview.sql",
+          "line": 28,
+          "context": "extract(year from fps.position_date)"
+        }
+      ]
+    },
+    {
+      "pattern_id": 4,
+      "pattern_name": "Date Truncation to Month",
+      "description": "PostgreSQL date_trunc function to truncate date to beginning of month",
+      "category": "Date/Time Operations",
+      "postgres_syntax": "date_trunc('month', {{ date_column }})",
+      "snowflake_syntax": "DATE_TRUNC('MONTH', {{ date_column }})",
+      "complexity": "Low",
+      "instance_count": 4,
+      "locations": [
+        {
+          "file": "postgres/models/staging/stg_dates.sql",
+          "line": 10,
+          "context": "date_trunc('month', cast(date_day as date)) as month_start"
+        },
+        {
+          "file": "postgres/models/marts/fact_trade_activity.sql",
+          "line": 51,
+          "context": "date_trunc('month', t.trade_date)"
+        },
+        {
+          "file": "postgres/models/marts/fact_trade_activity.sql",
+          "line": 54,
+          "context": "date_trunc('month', t.trade_date)"
+        },
+        {
+          "file": "postgres/models/marts/report_lp_quarterly.sql",
+          "line": 12,
+          "context": "date_trunc('quarter', cf.cashflow_date) as quarter_start"
+        }
+      ]
+    },
+    {
+      "pattern_id": 5,
+      "pattern_name": "Date Truncation to Quarter",
+      "description": "PostgreSQL date_trunc function to truncate date to beginning of quarter",
+      "category": "Date/Time Operations",
+      "postgres_syntax": "date_trunc('quarter', {{ date_column }})",
+      "snowflake_syntax": "DATE_TRUNC('QUARTER', {{ date_column }})",
+      "complexity": "Low",
+      "instance_count": 4,
+      "locations": [
+        {
+          "file": "postgres/models/staging/stg_dates.sql",
+          "line": 11,
+          "context": "date_trunc('quarter', cast(date_day as date)) as quarter_start"
+        },
+        {
+          "file": "postgres/models/marts/report_lp_quarterly.sql",
+          "line": 12,
+          "context": "date_trunc('quarter', cf.cashflow_date) as quarter_start"
+        },
+        {
+          "file": "postgres/models/marts/report_lp_quarterly.sql",
+          "line": 22,
+          "context": "date_trunc('quarter', cf.cashflow_date)"
+        },
+        {
+          "file": "postgres/models/marts/report_lp_quarterly.sql",
+          "line": 40,
+          "context": "date_trunc('quarter', v.valuation_date)"
+        }
+      ]
+    },
+    {
+      "pattern_id": 6,
+      "pattern_name": "Fiscal Quarter Calculation (4 extracts + CASE)",
+      "description": "Complex CASE statement duplicated across models for mapping calendar months to fiscal quarters (offset by 6 months)",
+      "category": "Business Logic Aggregation",
+      "postgres_syntax": "case when extract(month from {{ date_column }}) between 1 and 3 then 'Q3' when extract(month from {{ date_column }}) between 4 and 6 then 'Q4' when extract(month from {{ date_column }}) between 7 and 9 then 'Q1' when extract(month from {{ date_column }}) between 10 and 12 then 'Q2' end",
+      "snowflake_syntax": "case when month({{ date_column }}) between 1 and 3 then 'Q3' when month({{ date_column }}) between 4 and 6 then 'Q4' when month({{ date_column }}) between 7 and 9 then 'Q1' when month({{ date_column }}) between 10 and 12 then 'Q2' end OR use macro get_fiscal_quarter({{ date_column }})",
+      "complexity": "Medium",
+      "instance_count": 10,
+      "locations": [
+        {
+          "file": "postgres/macros/date_utils.sql",
+          "lines": "5-12",
+          "context": "Macro definition get_fiscal_quarter - reusable template"
+        },
+        {
+          "file": "postgres/models/staging/stg_benchmarks.sql",
+          "lines": "10-15",
+          "context": "benchmark_fiscal_quarter calculation"
+        },
+        {
+          "file": "postgres/models/staging/stg_cashflows.sql",
+          "lines": "14-19",
+          "context": "cashflow_fiscal_quarter calculation"
+        },
+        {
+          "file": "postgres/models/staging/stg_portfolios.sql",
+          "lines": "13-18",
+          "context": "inception_fiscal_quarter calculation"
+        },
+        {
+          "file": "postgres/models/staging/stg_trades.sql",
+          "lines": "19-24",
+          "context": "trade_fiscal_quarter calculation"
+        },
+        {
+          "file": "postgres/models/staging/stg_valuations.sql",
+          "lines": "13-18",
+          "context": "valuation_fiscal_quarter calculation"
+        },
+        {
+          "file": "postgres/models/intermediate/int_trade_enriched.sql",
+          "lines": "22-27",
+          "context": "fiscal_quarter calculation"
+        },
+        {
+          "file": "postgres/models/marts/fact_cashflow_waterfall.sql",
+          "lines": "26-31",
+          "context": "fiscal_quarter calculation"
+        },
+        {
+          "file": "postgres/models/marts/fact_trade_activity.sql",
+          "lines": "38-43",
+          "context": "computed_fiscal_quarter calculation"
+        },
+        {
+          "file": "postgres/models/marts/report_ic_dashboard.sql",
+          "lines": "74-79",
+          "context": "reporting_fiscal_quarter calculation"
+        },
+        {
+          "file": "postgres/models/marts/report_portfolio_overview.sql",
+          "lines": "19-24",
+          "context": "fiscal_quarter calculation"
+        }
+      ]
+    },
+    {
+      "pattern_id": 7,
+      "pattern_name": "Fiscal Year Calculation (complex)",
+      "description": "Complex logic to calculate fiscal year by offsetting calendar year if month >= 7",
+      "category": "Business Logic Aggregation",
+      "postgres_syntax": "case when extract(month from {{ date_column }}) >= 7 then extract(year from {{ date_column }}) + 1 else extract(year from {{ date_column }}) end",
+      "snowflake_syntax": "case when month({{ date_column }}) >= 7 then year({{ date_column }}) + 1 else year({{ date_column }}) end OR use macro get_fiscal_year({{ date_column }})",
+      "complexity": "Medium",
+      "instance_count": 2,
+      "locations": [
+        {
+          "file": "postgres/macros/date_utils.sql",
+          "lines": "16-22",
+          "context": "Macro definition get_fiscal_year - reusable template"
+        },
+        {
+          "file": "postgres/models/marts/report_portfolio_overview.sql",
+          "lines": "25-29",
+          "context": "fiscal_year calculation in final select"
+        }
+      ]
+    },
+    {
+      "pattern_id": 8,
+      "pattern_name": "Row Number with WHERE filter for Deduplication",
+      "description": "Using row_number() OVER (...) within subquery followed by WHERE rn = 1 to get latest/unique record",
+      "category": "Window Function Patterns",
+      "postgres_syntax": "select * from (select *, row_number() over (...) as rn from table) sub where rn = 1",
+      "snowflake_syntax": "select * from table qualify row_number() over (...) = 1",
+      "complexity": "Medium",
+      "instance_count": 6,
+      "locations": [
+        {
+          "file": "postgres/models/intermediate/int_cashflow_enriched.sql",
+          "lines": "7-30",
+          "context": "Dedup cashflows by cashflow_id with row_number"
+        },
+        {
+          "file": "postgres/models/intermediate/int_trade_enriched.sql",
+          "lines": "5-42",
+          "context": "Dedup trades by portfolio_id, instrument_id, trade_date with row_number"
+        },
+        {
+          "file": "postgres/models/intermediate/int_valuation_enriched.sql",
+          "lines": "6-25",
+          "context": "Dedup valuations by portfolio_id, valuation_date with row_number"
+        },
+        {
+          "file": "postgres/models/marts/report_daily_pnl.sql",
+          "lines": "5-18",
+          "context": "Get latest 5 PnL records per portfolio with row_number"
+        },
+        {
+          "file": "postgres/models/marts/report_ic_dashboard.sql",
+          "lines": "6-18",
+          "context": "Latest fund performance with row_number"
+        },
+        {
+          "file": "postgres/models/marts/report_ic_dashboard.sql",
+          "lines": "21-33",
+          "context": "Latest portfolio summary with row_number"
+        }
+      ]
+    },
+    {
+      "pattern_id": 9,
+      "pattern_name": "Correlated Subquery for Maximum Value",
+      "description": "Using correlated subquery to find max value from same table instead of window function",
+      "category": "Subquery Patterns",
+      "postgres_syntax": "where {{ column }} = (select max({{ column }}) from {{ table }} t2 where t2.{{ partition_col }} = t1.{{ partition_col }})",
+      "snowflake_syntax": "where {{ column }} = max({{ column }}) over (partition by {{ partition_col }})",
+      "complexity": "Medium",
+      "instance_count": 3,
+      "locations": [
+        {
+          "file": "postgres/models/intermediate/int_irr_calculations.sql",
+          "lines": "33-38",
+          "context": "Get latest valuation date per portfolio using correlated subquery"
+        },
+        {
+          "file": "postgres/models/marts/report_lp_quarterly.sql",
+          "lines": "39-45",
+          "context": "Get quarter-end valuations using subquery and row_number"
+        },
+        {
+          "file": "postgres/models/marts/report_portfolio_overview.sql",
+          "lines": "31-36",
+          "context": "Get latest position_date per portfolio using correlated subquery"
+        }
+      ]
+    },
+    {
+      "pattern_id": 10,
+      "pattern_name": "Type Casting (CAST to numeric/date/boolean)",
+      "description": "Explicit CAST operations on columns to ensure proper types",
+      "category": "Type Operations",
+      "postgres_syntax": "cast({{ column }} as {{ type }})",
+      "snowflake_syntax": "cast({{ column }} as {{ type }}) OR {{ column }}::{{ type }}",
+      "complexity": "Low",
+      "instance_count": 45,
+      "notes": "Appears extensively in staging models and throughout transformations. Type casting is similar between PostgreSQL and Snowflake.",
+      "example_locations": [
+        {
+          "file": "postgres/models/staging/stg_benchmarks.sql",
+          "lines": "4-8",
+          "context": "Multiple CAST operations in stg_benchmarks"
+        },
+        {
+          "file": "postgres/models/staging/stg_trades.sql",
+          "lines": "9-14",
+          "context": "Multiple CAST operations in stg_trades"
+        }
+      ]
+    },
+    {
+      "pattern_id": 11,
+      "pattern_name": "Unnecessary DISTINCT on Unique Key",
+      "description": "Using SELECT DISTINCT when source data is already unique by primary key or when deduplication is not needed",
+      "category": "Query Optimization",
+      "postgres_syntax": "select distinct {{ columns }} from {{ table }}",
+      "snowflake_syntax": "select {{ columns }} from {{ table }} (remove unnecessary DISTINCT)",
+      "complexity": "Low",
+      "instance_count": 8,
+      "locations": [
+        {
+          "file": "postgres/models/staging/stg_benchmarks.sql",
+          "line": 1,
+          "context": "select distinct on benchmark_id (primary key)"
+        },
+        {
+          "file": "postgres/models/staging/stg_cashflows.sql",
+          "line": 3,
+          "context": "select distinct on cashflow_id (primary key)"
+        },
+        {
+          "file": "postgres/models/staging/stg_counterparties.sql",
+          "line": 1,
+          "context": "select distinct on counterparty_id (primary key)"
+        },
+        {
+          "file": "postgres/models/staging/stg_fund_structures.sql",
+          "line": 1,
+          "context": "select distinct on fund_id (primary key)"
+        },
+        {
+          "file": "postgres/models/staging/stg_instruments.sql",
+          "line": 2,
+          "context": "select distinct on instrument_id (primary key)"
+        },
+        {
+          "file": "postgres/models/staging/stg_portfolios.sql",
+          "line": 4,
+          "context": "select distinct on portfolio_id (primary key)"
+        },
+        {
+          "file": "postgres/models/staging/stg_positions.sql",
+          "line": 4,
+          "context": "select distinct on position_id (primary key)"
+        },
+        {
+          "file": "postgres/models/staging/stg_valuations.sql",
+          "line": 2,
+          "context": "select distinct on valuation_id (primary key)"
+        }
+      ]
+    },
+    {
+      "pattern_id": 12,
+      "pattern_name": "Multiple Identical Window Function Partitions",
+      "description": "Computing the same window function multiple times with identical partition/order clauses in same query",
+      "category": "Window Function Optimization",
+      "postgres_syntax": "lag(col) over (partition by p_col order by o_col) ... lag(col) over (partition by p_col order by o_col)",
+      "snowflake_syntax": "Store result in intermediate CTE or single window computation",
+      "complexity": "Medium",
+      "instance_count": 8,
+      "locations": [
+        {
+          "file": "postgres/models/intermediate/int_fund_nav.sql",
+          "lines": "54-70",
+          "context": "lag(fund_nav) computed 4 times with same partition"
+        },
+        {
+          "file": "postgres/models/intermediate/int_irr_calculations.sql",
+          "lines": "68-69",
+          "context": "Date arithmetic with date subtraction cast to numeric"
+        },
+        {
+          "file": "postgres/models/intermediate/int_valuation_enriched.sql",
+          "lines": "30-46",
+          "context": "lag(net_asset_value) computed 3 times with same partition"
+        },
+        {
+          "file": "postgres/models/intermediate/int_daily_positions.sql",
+          "lines": "64-82",
+          "context": "Multiple window functions with overlapping partitions"
+        },
+        {
+          "file": "postgres/models/intermediate/int_benchmark_returns.sql",
+          "lines": "27-58",
+          "context": "Multiple rolling window calculations"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "pattern_groups": {
+      "Date/Time Operations": {
+        "count": 5,
+        "pattern_ids": [1, 2, 3, 4, 5],
+        "total_instances": 51,
+        "priority": "HIGH",
+        "reason": "Most common type of PostgreSQL-specific syntax, affects nearly every model"
+      },
+      "Business Logic Aggregation": {
+        "count": 2,
+        "pattern_ids": [6, 7],
+        "total_instances": 12,
+        "priority": "HIGH",
+        "reason": "Duplicated logic across 10+ models, should be consolidated into macros"
+      },
+      "Window Function Patterns": {
+        "count": 2,
+        "pattern_ids": [8, 12],
+        "total_instances": 14,
+        "priority": "MEDIUM",
+        "reason": "Anti-patterns that can be optimized during translation"
+      },
+      "Subquery Patterns": {
+        "count": 1,
+        "pattern_ids": [9],
+        "total_instances": 3,
+        "priority": "MEDIUM",
+        "reason": "Can be replaced with QUALIFY clause in Snowflake"
+      },
+      "Type Operations": {
+        "count": 1,
+        "pattern_ids": [10],
+        "total_instances": 45,
+        "priority": "LOW",
+        "reason": "Similar syntax in both platforms, mostly compatible"
+      },
+      "Query Optimization": {
+        "count": 1,
+        "pattern_ids": [11],
+        "total_instances": 8,
+        "priority": "MEDIUM",
+        "reason": "Can be removed in Snowflake for better performance"
+      }
+    },
+    "translation_notes": {
+      "critical_changes": [
+        "Date arithmetic: (date1 - date2) must become DATEDIFF(DAY, date1, date2)",
+        "EXTRACT function: extract(MONTH|YEAR from date) must become MONTH|YEAR(date)",
+        "date_trunc: date_trunc('interval', date) must become DATE_TRUNC('INTERVAL', date) with capital interval",
+        "ROW_NUMBER subquery: Remove subquery wrapper and use QUALIFY clause instead",
+        "Correlated subqueries: Replace with window functions or QUALIFY"
+      ],
+      "optimization_opportunities": [
+        "Consolidate repeated fiscal quarter logic into a single macro/UDF",
+        "Remove unnecessary DISTINCT keywords from 8 staging models",
+        "Consolidate duplicate window function computations in intermediate models",
+        "Replace correlated subqueries with window functions or QUALIFY"
+      ],
+      "migration_strategy": [
+        "Phase 1: Convert all date/time operations (patterns 1-5) - highest frequency",
+        "Phase 2: Consolidate business logic (patterns 6-7) into macros before translation",
+        "Phase 3: Update window function patterns (patterns 8, 12) for optimization",
+        "Phase 4: Clean up query patterns (patterns 9, 11) for Snowflake best practices"
+      ]
+    },
+    "statistics": {
+      "total_files_analyzed": 30,
+      "macros_analyzed": 2,
+      "staging_models": 10,
+      "intermediate_models": 8,
+      "marts_models": 10,
+      "total_unique_patterns": 12,
+      "total_pattern_instances": 156,
+      "estimated_translation_effort": "Medium (10-15 hours for manual verification, 4-6 hours for automated translation)"
+    }
+  }
+}

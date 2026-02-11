@@ -1,0 +1,6 @@
+portfolio_id,portfolio_name,strategy,inception_date,fund_id,manager_name,is_active
+PF001,Global Equity Alpha,long_short_equity,2020-01-15,FD001,Sarah Chen,true
+PF002,Credit Opportunities,distressed_credit,2019-06-01,FD001,James Morton,true
+PF003,PE Co-Investment I,private_equity,2021-03-10,FD002,Maria Gonzalez,true
+PF004,Real Assets Fund,real_assets,2020-09-22,FD002,David Park,true
+PF005,Macro Strategies,global_macro,2022-01-05,FD003,Alex Turner,true
