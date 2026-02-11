@@ -1,0 +1,12 @@
+
+    
+    
+    truncate table "DBT_DEMO"."DEV_RAW"."RAW_PORTFOLIOS";
+    -- dbt seed --
+    
+            insert into DBT_DEMO.DEV_raw.raw_portfolios (portfolio_id, portfolio_name, strategy, inception_date, fund_id, manager_name, is_active) values
+            (%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s)
+        
+
+;
+  

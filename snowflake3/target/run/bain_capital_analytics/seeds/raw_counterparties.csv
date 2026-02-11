@@ -1,0 +1,12 @@
+
+    
+    
+    truncate table "DBT_DEMO"."DEV_RAW"."RAW_COUNTERPARTIES";
+    -- dbt seed --
+    
+            insert into DBT_DEMO.DEV_raw.raw_counterparties (counterparty_id, counterparty_name, counterparty_type, country, credit_rating, is_active) values
+            (%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s)
+        
+
+;
+  
