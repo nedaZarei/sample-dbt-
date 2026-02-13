@@ -1,0 +1,13 @@
+bain_capital_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('DBT_SF_ACCOUNT') }}"
+      user: "{{ env_var('DBT_SF_USER') }}"
+      password: "{{ env_var('DBT_SF_PASSWORD') }}"
+      role: "{{ env_var('DBT_SF_ROLE', 'TRANSFORMER') }}"
+      warehouse: "{{ env_var('DBT_SF_WAREHOUSE', 'TRANSFORMING') }}"
+      database: "{{ env_var('DBT_SF_DATABASE', 'BAIN_ANALYTICS') }}"
+      schema: public
+      threads: 4

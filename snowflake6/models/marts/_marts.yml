@@ -1,0 +1,102 @@
+version: 2
+
+models:
+  # Pipeline A
+  - name: fact_portfolio_summary
+    description: "Pipeline A FACT: Portfolio-level summary with position aggregations"
+    config:
+      tags: ['pipeline_a', 'pipeline_c']
+    columns:
+      - name: portfolio_id
+        tests:
+          - not_null
+      - name: position_date
+        tests:
+          - not_null
+
+  - name: report_portfolio_overview
+    description: "Pipeline A REPORT: Latest portfolio overview for management"
+    config:
+      tags: ['pipeline_a']
+    columns:
+      - name: portfolio_id
+        tests:
+          - not_null
+
+  # Pipeline B
+  - name: fact_portfolio_pnl
+    description: "Pipeline B FACT: Daily portfolio PnL with trade activity"
+    config:
+      tags: ['pipeline_b']
+    columns:
+      - name: portfolio_id
+        tests:
+          - not_null
+      - name: pnl_date
+        tests:
+          - not_null
+
+  - name: fact_trade_activity
+    description: "Pipeline B FACT: Trade activity detail with enrichment"
+    config:
+      tags: ['pipeline_b']
+    columns:
+      - name: trade_id
+        tests:
+          - unique
+          - not_null
+
+  - name: report_daily_pnl
+    description: "Pipeline B REPORT: Daily PnL report with benchmark comparison"
+    config:
+      tags: ['pipeline_b']
+    columns:
+      - name: portfolio_id
+        tests:
+          - not_null
+
+  # Pipeline C
+  - name: fact_fund_performance
+    description: "Pipeline C FACT: Fund-level performance with NAV, IRR, multiples"
+    config:
+      tags: ['pipeline_c']
+    columns:
+      - name: fund_id
+        tests:
+          - not_null
+
+  - name: fact_cashflow_waterfall
+    description: "Pipeline C FACT: Cashflow waterfall with carry calculations"
+    config:
+      tags: ['pipeline_c']
+    columns:
+      - name: cashflow_id
+        tests:
+          - not_null
+
+  - name: fact_portfolio_attribution
+    description: "Pipeline C FACT: Sector-level performance attribution with benchmark"
+    config:
+      tags: ['pipeline_c']
+    columns:
+      - name: portfolio_id
+        tests:
+          - not_null
+
+  - name: report_ic_dashboard
+    description: "Pipeline C REPORT: Investment Committee dashboard with fund and portfolio metrics"
+    config:
+      tags: ['pipeline_c']
+    columns:
+      - name: fund_id
+        tests:
+          - not_null
+
+  - name: report_lp_quarterly
+    description: "Pipeline C REPORT: LP quarterly report with cashflows, NAV, and multiples"
+    config:
+      tags: ['pipeline_c']
+    columns:
+      - name: fund_id
+        tests:
+          - not_null
